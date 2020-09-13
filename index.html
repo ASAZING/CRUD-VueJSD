@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD VueJS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-5v" id="app">
+        <h3>{{title}}</h3>
+        <input type="text" class="form-control my-2" v-model="nuevaAlerta" @keyup.enter="agregarAlerta()">
+        <button class="btn btn-primary" @click="agregarAlerta()">Agregar</button>
+        <div class="mt-3" v-for="(alerta, index) in alertas">
+            <div role="alert" :class="['alert', alerta.estado ? 'alert-success' : 'alert-danger']">
+                <div class="d-flex justify-content-between aling-items-center">
+                    <div>
+                        {{index}} - {{alerta.alerta}} - {{alerta.estado}}
+                    </div>
+                    <div>
+                        <button class="btn btn-success btn-sm" @click="editarAlerta(index)">OK</button>
+                        <button class="btn btn-danger btn-sm" @click="eliminarAlerta(index)">X</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="js/app.js"></script>
+
+</html>
