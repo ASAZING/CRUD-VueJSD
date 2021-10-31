@@ -9,25 +9,31 @@ const app = new Vue({
     },
     methods: {
         agregarAlerta() {
-            this.alertas.push({
-                alerta: this.nuevaAlerta, estado: false
-            })
-            this.nuevaAlerta = '';
-            localStorage();
+            if(this.nuevaAlerta !=''){
+                this.alertas.push({
+                    alerta: this.nuevaAlerta, estado: false
+                })
+                this.nuevaAlerta = '';
+                this.almacenamientoLocal();
+            }
         },
 
-        editarAlerta(index) {
-            this.alertas[index].estado = true
-            localStorage();
+        procesarAlerta(index) {
+            this.alertas[index].estado = true;
+            this.almacenamientoLocal();
 
+        },
+        editarAlerta(index){
+            this.alertas[index].estado = false;
+            this.almacenamientoLocal();
         },
 
         eliminarAlerta(index) {
             this.alertas.splice(index, 1);
-            localStorage();
+            this.almacenamientoLocal();
         },
 
-        localStorage() {
+        almacenamientoLocal() {
             localStorage.setItem('lstorage-vue', JSON.stringify(this.alertas))
         }
     },

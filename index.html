@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>CRUD VueJS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
 </head>
-
 <body>
-    <div class="container mt-5v" id="app">
-        <h3>{{title}}</h3>
-        <input type="text" class="form-control my-2" v-model="nuevaAlerta" @keyup.enter="agregarAlerta()">
+    <div class="container mt-5" id="app">
+        <h3 class="text-center">{{title}}</h3>
+        <input type="text" class="form-control my-2" v-model="nuevaAlerta" @keyup.enter="agregarAlerta()" placeholder="Escriba una tarea aqui.." />
         <button class="btn btn-primary" @click="agregarAlerta()">Agregar</button>
         <div class="mt-3" v-for="(alerta, index) in alertas">
-            <div role="alert" :class="['alert', alerta.estado ? 'alert-success' : 'alert-danger']">
+            <div role="alert" :class="['alert', alerta.estado ? 'alert-success' : 'alert-warning']">
                 <div class="d-flex justify-content-between aling-items-center">
                     <div>
-                        {{index}} - {{alerta.alerta}} - {{alerta.estado}}
+                        <input @change="almacenamientoLocal" class="form-control" :disabled="alerta.estado"
+                            v-model="alerta.alerta" type="text" />
                     </div>
                     <div>
-                        <button class="btn btn-success btn-sm" @click="editarAlerta(index)">OK</button>
-                        <button class="btn btn-danger btn-sm" @click="eliminarAlerta(index)">X</button>
+                        <button v-if="!alerta.estado" class="btn btn-success btn-sm" @click="procesarAlerta(index)">
+                            OK
+                        </button>
+                        <button v-if="alerta.estado" class="btn btn-warning btn-sm" @click="editarAlerta(index)">
+                            Editar
+                        </button>
+                        <button v-if="!alerta.estado" class="btn btn-danger btn-sm" @click="eliminarAlerta(index)">
+                            Eliminar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -32,5 +38,4 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script src="js/app.js"></script>
-
 </html>
